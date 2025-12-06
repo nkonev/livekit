@@ -151,4 +151,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace github.com/livekit/mediatransportutil => github.com/nkonev/mediatransportutil v0.0.0-20251206065020-404cc5cf57e4
+replace github.com/livekit/mediatransportutil => github.com/nkonev/mediatransportutil v0.0.0-20251206071805-336b97bf76c9
