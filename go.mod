@@ -150,3 +150,5 @@ require (
 	google.golang.org/grpc v1.77.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace github.com/livekit/mediatransportutil => github.com/nkonev/mediatransportutil v0.0.0-20251206035023-aeef2b9bb602
