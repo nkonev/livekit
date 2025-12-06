@@ -19,13 +19,10 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
+	"github.com/magefile/mage/mg"
 	"os"
 	"os/exec"
-	"strings"
-
-	"github.com/magefile/mage/mg"
 
 	"github.com/livekit/livekit-server/version"
 	"github.com/livekit/mageutil"
@@ -34,7 +31,7 @@ import (
 
 const (
 	goChecksumFile = ".checksumgo"
-	imageName      = "livekit/livekit-server"
+	imageName      = "nkonev/livekit-server"
 )
 
 // Default target to run when none is specified
@@ -92,7 +89,7 @@ func BuildLinux() error {
 	if len(buildArch) == 0 {
 		buildArch = "amd64"
 	}
-	cmd := mageutil.CommandDir(context.Background(), "cmd/server", "go build -buildvcs=false -o ../../bin/livekit-server-" + buildArch)
+	cmd := mageutil.CommandDir(context.Background(), "cmd/server", "go build -buildvcs=false -o ../../bin/livekit-server-"+buildArch)
 	cmd.Env = []string{
 		"GOOS=linux",
 		"GOARCH=" + buildArch,
@@ -149,13 +146,13 @@ func Sync() error {
 // builds and publish snapshot docker image
 func PublishDocker() error {
 	// don't publish snapshot versions as latest or minor version
-	if !strings.Contains(version.Version, "SNAPSHOT") {
-		return errors.New("Cannot publish non-snapshot versions")
-	}
+	//if !strings.Contains(version.Version, "SNAPSHOT") {
+	//	return errors.New("Cannot publish non-snapshot versions")
+	//}
 
 	versionImg := fmt.Sprintf("%s:v%s", imageName, version.Version)
 	cmd := exec.Command("docker", "buildx", "build",
-		"--push", "--platform", "linux/amd64,linux/arm64",
+		"--push",
 		"--tag", versionImg,
 		".")
 	mageutil.ConnectStd(cmd)
